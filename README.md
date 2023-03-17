@@ -1,5 +1,5 @@
 # archieml-AppsScript
-Transforma um GoogleDocs em um arquivo JSON utilizando ArchieML
+Transforma um documento do GoogleDocs em um arquivo JSON, utilizando ArchieML
 * Baseado no repositório de Loren Riesenfeld (https://github.com/lorenries)
 * Não requer OAuth
 * Modificações realizadas no código para tratar bolds e itálicos feitos diretamente no GoogleDocs
