@@ -26,6 +26,7 @@ Pré-requisitos no S3:
 ]
 ```
 * No objeto é necessário modificar a lista de controle de acesso (ACL), na categoria Todos (acesso público) para leitura
+* Toda vez que o objeto é salvo é necessário marcar a ACL novamente (em verificação sobre um melhor método)
 
 * Na configuração do S3 no Google Docs preencha com:
 Nome do bucket
