@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Teste de Upload JSON</title>
+    <script>
+        function uploadJSON() {
+            google.script.run.withSuccessHandler(function (jsonContent) {
+                var formData = new FormData();
+                var jsonFile = new Blob([jsonContent], {
+                    type: "application/json",
+                });
+
+                // Obter o ID do documento
+                google.script.run.withSuccessHandler(function (docId) {
+                    // Adicionar o ID do documento como nome do diretório
+                    var directoryName = docId;
+                    var fileName = "page.json";
+                    formData.append("json_file", jsonFile, fileName);
+                    formData.append("directory_name", directoryName);
+
+                    // Enviar o arquivo para o servidor
+                    fetch("https://atelie.estadao.com.br/public/upload_json.php", {
+                            method: "POST",
+                            body: formData,
+                        })
+                        .then((response) => response.text())
+                        .then((responseText) => {
+                            document.getElementById("uploadStatus").innerText = responseText;
+                            document.getElementById("button").style = 'display:none';
+                            document.getElementById("preview").style = 'display:block';
+                            var uvaScript = "<script data-uva-id='" + directoryName +
+                                "' src='https://arte.estadao.com.br/arc/scripts/uva-render-reportagem.js'>";
+                            copyToClipboard(uvaScript);
+                        })
+                        .catch((error) => {
+                            console.error("Error:", error);
+                            document.getElementById("uploadStatus").innerText =
+                                "Desculpe, ocorreu um erro ao enviar seu arquivo.";
+                        });
+                }).getActiveDocumentId();
+            }).getJSON();
+        }
+
+        function copyToClipboard(uvaScript) {
+            navigator.clipboard.writeText(uvaScript).then(function () {
+                console.log("Texto copiado para a área de transferência");
+            }, function (err) {
+                console.error("Erro ao copiar texto para a área de transferência: ", err);
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        p {
+            font-family: Google Sans, Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
+            margin: 0;
+            color: #3a3a3a;
+            border-top: 1px solid #e8e8e8;
+            padding: 20px 0;
+            line-height: 1.25em;
+            letter-spacing: 0.01rem;
+        }
+
+        button {
+            float: right;
+            border-radius: 40px;
+            box-shadow: none;
+            box-sizing: border-box;
+            font-family: Google Sans, Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
+            text-transform: uppercase;
+            font-weight: 500;
+            font-size: 14px;
+            height: 36px;
+            letter-spacing: .25px;
+            line-height: 16px;
+            padding: 9px 24px 9px 24px;
+            background: #3a3a3a;
+            border: none;
+            color: white;
+            cursor: pointer;
+            margin-bottom: 20px;
+            box-shadow: 2px 2px 2px hsla(0, 0%, 7%, 0.119);
+        }
+
+        button:active {
+            box-shadow: none;
+            opacity: 0.8;
+        }
+    </style>
+    <p id="uploadStatus">Clique no botão para salvar sua reportagem e utilizá-la no Arc.</p>
+    <button id="button" onclick="uploadJSON()">Salvar</button>
+    <button id="preview" onclick="" style='display: none'>Visualizar</button>
+</body>
+
+</html>

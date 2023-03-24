@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <base target="_top">
+    <script>
+        function closeDialog() {
+            google.script.host.close();
+        }
+
+        function downloadFile() {
+            google.script.run.withSuccessHandler(function (jsonContent) {
+                var blob = new Blob([jsonContent], {
+                    type: "application/json;charset=utf-8"
+                });
+                var downloadLink = document.createElement("a");
+                downloadLink.href = URL.createObjectURL(blob);
+                downloadLink.download = "page.json";
+                downloadLink.click();
+                closeDialog();
+            }).getJSON();
+        }
+    </script>
+</head>
+
+<body>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        p {
+            font-family: Google Sans, Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
+            margin: 0;
+            color: #3a3a3a;
+            border-top: 1px solid #e8e8e8;
+            padding: 20px 0;
+            line-height: 1.25em;
+            letter-spacing: 0.01rem;
+        }
+
+        button {
+            float: right;
+            border-radius: 40px;
+            box-shadow: none;
+            box-sizing: border-box;
+            font-family: Google Sans, Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
+            text-transform: uppercase;
+            font-weight: 500;
+            font-size: 14px;
+            height: 36px;
+            letter-spacing: .25px;
+            line-height: 16px;
+            padding: 9px 24px 9px 24px;
+            background: #3a3a3a;
+            border: none;
+            color: white;
+            cursor: pointer;
+            margin-bottom: 20px;
+            box-shadow: 2px 2px 2px hsla(0, 0%, 7%, 0.119);
+        }
+
+        button:active {
+            box-shadow: none;
+            opacity: 0.8;
+        }
+    </style>
+    <p>Clique no botão para salvar sua reportagem em formato JSON no seu computador. O arquivo será salvo na sua pasta
+        de downloads.</p>
+    <button class="download" onclick="downloadFile()">Salvar</button>
+</body>
+
+</html>

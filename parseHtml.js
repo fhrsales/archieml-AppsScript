@@ -159,5 +159,10 @@ function parseHtml() {
     parser.end();
 
     return parsed;
+}
 
+// ********
+function getJSON() {
+    var parsed = JSON.stringify(parseHtml());
+    return parsed;
 }
