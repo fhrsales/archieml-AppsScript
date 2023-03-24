@@ -34,5 +34,5 @@ Caminho: se quiser ter mais de um JSON neste bucket
 AWS access Key ID e AWS secret Key
 
 * Modificações realizadas no código para tratar bolds e itálicos feitos diretamente no GoogleDocs
-* Prettify: organiza o GoogleDocs para que as markups fiquem com uma fonte customizada
-* Também há uma função para salvar no drive uma versão do JSON ('Salvar JSON')
+* Formatar documento: organiza o GoogleDocs para que as markups fiquem com uma fonte customizada
+* Também há uma função para salvar no drive uma versão do JSON ('Salvar > no Google Drive')
