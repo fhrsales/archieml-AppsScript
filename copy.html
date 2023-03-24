@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <base target="_top">
+</head>
+
+<body>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        form {
+            font-family: Google Sans, Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
+            margin: 0;
+            color: #3a3a3a;
+            border-top: 1px solid #e8e8e8;
+            padding: 20px 0;
+            line-height: 1.25em;
+            letter-spacing: 0.01rem;
+        }
+
+        #filename {
+            width: -webkit-fill-available;
+            margin: 15px 0 20px 0;
+            height: 28px;
+            border: none;
+            border-bottom: 1px solid black;
+            outline: none;
+            padding: 0 0 6px 0;
+            color: #3a3a3a;
+            font-family: Google Serif, TimesNewRoman, serif;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        #submit {
+            float: right;
+            border-radius: 40px;
+            box-shadow: none;
+            box-sizing: border-box;
+            font-family: Google Sans, Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
+            text-transform: uppercase;
+            font-weight: 500;
+            font-size: 14px;
+            height: 36px;
+            letter-spacing: .25px;
+            line-height: 16px;
+            padding: 9px 24px 9px 24px;
+            background: #3a3a3a;
+            border: none;
+            color: white;
+            cursor: pointer;
+            margin-bottom: 20px;
+            box-shadow: 2px 2px 2px hsla(0, 0%, 7%, 0.119);
+        }
+
+        submit:active {
+            box-shadow: none;
+            opacity: 0.8;
+        }
+    </style>
+    <form>
+        <label for="filename">Digite o nome da reportagem:</label>
+        <input type="text" id="filename" name="filename">
+        <br>
+        <input id="submit" type="button" value="OK" onclick="submitForm();">
+    </form>
+    <script>
+        function submitForm() {
+            var filename = document.getElementById('filename').value;
+            google.script.run.copyAndTransferOwnership(filename);
+            google.script.host.close();
+        }
+
+        function closeWindow() {
+            window.close();
+            google.script.host.close();
+        }
+    </script>
+</body>
+
+</html>
