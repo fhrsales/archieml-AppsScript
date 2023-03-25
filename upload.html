@@ -8,6 +8,7 @@
     <script>
         function uploadJSON() {
             google.script.run.withSuccessHandler(function (jsonContent) {
+                document.getElementById("button").innerText = 'Salvando...';
                 var formData = new FormData();
                 var jsonFile = new Blob([jsonContent], {
                     type: "application/json",
@@ -31,8 +32,9 @@
                             document.getElementById("uploadStatus").innerText = responseText;
                             document.getElementById("button").style = 'display:none';
                             document.getElementById("preview").style = 'display:block';
-                            var uvaScript = "<script data-uva-id='" + directoryName +
-                                "' src='https://arte.estadao.com.br/arc/scripts/uva-render-reportagem.js'>";
+                            var uvaScript =
+                                `<script data-uva-id="${docId}" src="https://arte.estadao.com.br/arc/scripts/uva-render-reportagem.js"></` +
+                                `script>`
                             copyToClipboard(uvaScript);
                         })
                         .catch((error) => {
@@ -50,6 +52,40 @@
             }, function (err) {
                 console.error("Erro ao copiar texto para a área de transferência: ", err);
             });
+        }
+
+        function previewJSON() {
+            // Obter o ID do documento
+            google.script.run.withSuccessHandler(function (docId) {
+                // Cria o HTML para visualização
+                var html = '<!DOCTYPE html>' +
+                    '<html lang="pt=BR">' +
+                    '<head>' +
+                    '<title>Pré-visualização</title>' +
+                    '<meta charset="UTF-8">' +
+                    '<meta name="description" content="Componentes para construção de reportagens da editoria Multimídia Estadão">' +
+                    '<meta name="viewport" content="width=device-width, initial-scale=1">' +
+                    '<link rel="shortcut icon" href="https://www.estadao.com.br/pf/resources/favicon.ico?d=527">' +
+                    '</head>' +
+                    '<body>' +
+                    '<div class="embed-wrapper">' +
+                    '<div class="embed-container">' +
+                    '<div class="embed-container">' +
+                    `<script data-uva-id="${docId}" src="https://arte.estadao.com.br/arc/scripts/uva-render-reportagem.js"></` +
+                    `script>`
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</body>' +
+                '</html>';
+                // Abrir a visualização em uma nova aba
+                var previewWindow = window.open();
+                previewWindow.document.write(html);
+                previewWindow.document.close();
+                previewWindow.focus();
+                // Fecha o modal da tela anterior com o botão pré-visualizar
+                google.script.host.close();
+            }).getActiveDocumentId();
         }
     </script>
 </head>
@@ -96,9 +132,10 @@
             opacity: 0.8;
         }
     </style>
-    <p id="uploadStatus">Clique no botão para salvar sua reportagem e utilizá-la no Arc.</p>
+    <p id="uploadStatus">Clique no botão para salvar sua reportagem. Será copiado para seu clipboard uma linha de script
+        que deverá ser inserida no Arc.</p>
     <button id="button" onclick="uploadJSON()">Salvar</button>
-    <button id="preview" onclick="" style='display: none'>Visualizar</button>
+    <button id="preview" onclick="previewJSON()" style='display: none'>Pré-visualizar</button>
 </body>
 
 </html>

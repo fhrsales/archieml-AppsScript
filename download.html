@@ -10,6 +10,7 @@
 
         function downloadFile() {
             google.script.run.withSuccessHandler(function (jsonContent) {
+              document.getElementById("download").innerText = 'Salvando...';
                 var blob = new Blob([jsonContent], {
                     type: "application/json;charset=utf-8"
                 });
@@ -67,7 +68,7 @@
     </style>
     <p>Clique no botão para salvar sua reportagem em formato JSON no seu computador. O arquivo será salvo na sua pasta
         de downloads.</p>
-    <button class="download" onclick="downloadFile()">Salvar</button>
+    <button id="download" class="download" onclick="downloadFile()">Salvar</button>
 </body>
 
 </html>

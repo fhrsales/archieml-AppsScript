@@ -5,81 +5,67 @@
     <base target="_top">
 
     <style>
-        /* https://css-tricks.com/box-sizing/ */
-        html {
-            box-sizing: border-box;
-        }
-
-        *,
-        *:before,
-        *:after {
-            box-sizing: inherit;
-        }
-
         body {
-            font-family: Helvetica, Arial, sans-serif;
+            margin: 0;
         }
 
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        li {
-            margin: 1em 0;
-        }
-
-        label {
-            font-weight: bold;
-        }
-
-        input[type=text],
-        input[type=password] {
-            display: block;
-            border: 1px solid #ccc;
-            font-size: 1em;
-            padding: 0.5em;
-            margin: 0.25em 0;
-            width: 100%;
-            outline: none;
-        }
-
-        input[type=text]:invalid,
-        input[type=password]:invalid {
-            border-color: red;
-        }
-
-        input[type=text]:focus,
-        input[type=password]:focus {
-            border-color: #3079ed;
+        form {
+            font-family: Google Sans, Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
+            margin: 0;
+            color: #3a3a3a;
+            border-top: 1px solid #e8e8e8;
+            padding: 20px 0;
+            line-height: 1.25em;
+            letter-spacing: 0.01rem;
         }
 
         button {
-            font-size: 1.25em;
-            border: 0;
-            padding: 0.5em 1em;
-            cursor: pointer;
+            float: right;
+            border-radius: 40px;
+            box-shadow: none;
+            box-sizing: border-box;
+            font-family: Google Sans, Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
+            text-transform: uppercase;
+            font-weight: 500;
+            font-size: 14px;
+            height: 36px;
+            letter-spacing: .25px;
+            line-height: 16px;
+            padding: 9px 24px 9px 24px;
+            background: #3a3a3a;
+            border: none;
             color: white;
-            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            box-shadow: 2px 2px 2px hsla(0, 0%, 7%, 0.119);
         }
 
-        button.primary {
-            background-color: #3079ed;
+        button:active {
+            box-shadow: none;
+            opacity: 0.8;
         }
 
-        button.loading {
-            opacity: 0.5;
-            cursor: default;
+        #bucket-name,
+        #path,
+        #aws-access-key-id,
+        #aws-secret-key {
+            width: -webkit-fill-available;
+            margin: 15px 0 20px 0;
+            height: 28px;
+            border: none;
+            border-bottom: 1px solid black;
+            outline: none;
+            padding: 0 0 6px 0;
+            color: #3a3a3a;
+            font-family: Google Serif, TimesNewRoman, serif;
+            font-size: 18px;
+            font-weight: bold;
         }
 
-        .sheet-id {
-            color: gray;
-            font-size: 0.8em;
-        }
-
-        .action-buttons {
-            display: flex;
-            justify-content: flex-end;
+        ul {
+            margin: 0;
+            list-style-type: none;
+            padding: 0;
         }
     </style>
 
@@ -90,26 +76,27 @@
     <form onsubmit="handleSubmit(); return false">
         <ul>
             <li>
-                <label for="bucket-name">Bucket name</label>
+                <!-- <label for="bucket-name">Bucket name</label> -->
                 <input id="bucket-name" name="bucketName" type="text" autofocus value="<?!= bucketName ?>"
-                    placeholder="my-bucket-name" required />
+                    placeholder="Nome do Bucket no S3" required />
             </li>
 
             <li>
-                <label for="path">Caminho (without leading or trailing slashes)</label>
-                <input id="path" name="path" type="text" value="<?!= path ?>" placeholder="path/to/folder" />
+                <!-- <label for="path">Caminho (without leading or trailing slashes)</label> -->
+                <input id="path" name="path" type="text" value="<?!= path ?>"
+                    placeholder="Caminho (sem barras – / –)" />
             </li>
 
             <li>
-                <label for="aws-access-key-id">AWS access key ID</label>
+                <!-- <label for="aws-access-key-id">AWS access key ID</label> -->
                 <input id="aws-access-key-id" name="awsAccessKeyId" type="text" value="<?!= awsAccessKeyId ?>"
-                    placeholder="from AWS management console" required />
+                    placeholder="AWS access key ID" required />
             </li>
 
             <li>
-                <label for="aws-secret-key">AWS secret key</label>
+                <!-- <label for="aws-secret-key">AWS secret key</label> -->
                 <input id="aws-secret-key" name="awsSecretKey" type="password" value="<?!= awsSecretKey ?>"
-                    placeholder="from AWS management console" required />
+                    placeholder="AWS secret key" required />
             </li>
         </ul>
 
@@ -123,8 +110,8 @@
         function handleSubmit() {
             var form = document.querySelector('form');
             var submitButton = document.querySelector('form button[type=submit]');
-            submitButton.classList.add('loading');
-            submitButton.innerHTML = 'Saving...';
+            submitButton.classList.add('Carregando');
+            submitButton.innerHTML = 'Salvando...';
             google.script.run.updateConfig(form);
         }
     </script>

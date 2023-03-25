@@ -1,4 +1,3 @@
-// ********
 // Publica o JSON no S3
 function publish() {
     // Não publica se as configurações necessárias não forem atendidas
@@ -13,13 +12,13 @@ function publish() {
     var s3 = S3.getInstance(props.awsAccessKeyId, props.awsSecretKey);
     s3.putObject(props.bucketName, [props.path, DocumentApp.getActiveDocument().getId()].join('/'), parsed);
 }
-// ********
+
+// Verifica se as propriedades necessárias para publicar no S3 foram preenchidas
 function hasRequiredProps() {
     var props = PropertiesService.getDocumentProperties().getProperties();
     return props.bucketName && props.awsAccessKeyId && props.awsSecretKey;
 }
 
-// ********
 // Tela de configuração do S3
 function showConfig() {
     var ui = DocumentApp.getUi();
@@ -29,8 +28,20 @@ function showConfig() {
     template.path = props.path || '';
     template.awsAccessKeyId = props.awsAccessKeyId || '';
     template.awsSecretKey = props.awsSecretKey || '';
-    ui.showModalDialog(template.evaluate(), 'Configuração do Amazon S3');
+
+    // Define o tamanho da janela do modal
+    var width = 600;
+    var height = 350;
+
+    // Cria a saída HTML com o conteúdo do modal
+    var htmlOutput = template.evaluate()
+        .setWidth(width)
+        .setHeight(height);
+
+    // Mostra o modal com o conteúdo HTML
+    ui.showModalDialog(htmlOutput, 'Configuração do Amazon S3');
 }
+
 // Atualiza a configuração do S3 com os valores informados pelo usuário
 function updateConfig(form) {
     PropertiesService.getDocumentProperties().setProperties({
@@ -50,7 +61,7 @@ function updateConfig(form) {
     ui.alert('✓ Configuração atualizada', message, ui.ButtonSet.OK);
 }
 
-// ********
+// Copia o link do documento no S3 para a área de transferência
 function copyLink() {
     var form = PropertiesService.getDocumentProperties().getProperties();
     var link = 'https://' + form.bucketName + '.s3.amazonaws.com/' + form.path + '/' + DocumentApp.getActiveDocument().getId()
