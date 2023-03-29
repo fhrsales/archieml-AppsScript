@@ -2,7 +2,7 @@ function showInputDialog() {
     var htmlOutput = HtmlService.createHtmlOutputFromFile('copy.html')
         .setWidth(600)
         .setHeight(150);
-    DocumentApp.getUi().showModalDialog(htmlOutput, 'Copie o template');
+    DocumentApp.getUi().showModalDialog(htmlOutput, 'Copiar template');
 }
 
 function copyAndTransferOwnership(newFileName) {

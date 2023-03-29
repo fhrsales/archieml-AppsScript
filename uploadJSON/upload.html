@@ -33,7 +33,7 @@
                             document.getElementById("button").style = 'display:none';
                             document.getElementById("preview").style = 'display:block';
                             var uvaScript =
-                                `<script data-uva-id="${docId}" src="https://arte.estadao.com.br/arc/scripts/uva-render-reportagem.js"></` +
+                                `<script data-uva-id="${docId}" src="https://arte.estadao.com.br/arc/scripts/uva-render-01.js"></` +
                                 `script>`
                             copyToClipboard(uvaScript);
                         })
@@ -71,7 +71,7 @@
                     '<div class="embed-wrapper">' +
                     '<div class="embed-container">' +
                     '<div class="embed-container">' +
-                    `<script data-uva-id="${docId}" src="https://arte.estadao.com.br/arc/scripts/uva-render-reportagem.js"></` +
+                    `<script data-uva-id="${docId}" src="https://arte.estadao.com.br/arc/scripts/uva-render-01.js"></` +
                     `script>`
                 '</div>' +
                 '</div>' +
@@ -132,8 +132,7 @@
             opacity: 0.8;
         }
     </style>
-    <p id="uploadStatus">Clique no botão para salvar sua reportagem. Será copiado para seu clipboard uma linha de script
-        que deverá ser inserida no Arc.</p>
+    <p id="uploadStatus">Clique no botão para salvar sua reportagem. Uma linha de script será copiada para a área de transferência, a qual deverá ser inserida posteriormente no Arc.</p>
     <button id="button" onclick="uploadJSON()">Salvar</button>
     <button id="preview" onclick="previewJSON()" style='display: none'>Pré-visualizar</button>
 </body>

@@ -1,9 +1,9 @@
 function createMenu() {
     var ui = DocumentApp.getUi();
-    ui.createMenu('UvaPages')
+    ui.createMenu('Uva Pages')
         .addItem('Copiar template', 'showInputDialog')
         .addSeparator()
-        .addSubMenu(ui.createMenu('Salvar')
+        .addSubMenu(ui.createMenu('Salvar e pré-visualizar')
             .addItem('no servidor da Arte', 'uploadJSON')
             .addItem('no seu computador', 'saveLOCAL')
             .addItem('no Google Drive', 'saveJSON')
@@ -11,6 +11,8 @@ function createMenu() {
                 .addItem('Configurar', 'showConfig')
                 .addItem('Publicar', 'publish')
                 .addItem('Copiar link', 'copyLink')))
+        .addSeparator()
+        .addItem('Enviar arquivos', 'openUploadFile')
         .addSeparator()
         .addSubMenu(ui.createMenu('Formatar Documento')
         .addItem('Prettify ArchieML', 'prettifyArchieML')
@@ -29,6 +31,7 @@ function createMenu() {
             .addItem('HTML', 'uvaHTML')
             .addItem('Janela', 'uvaJanela')
             .addItem('Lead', 'uvaLead')
+            .addItem('Leia mais', 'uvaLeiaMais')
             .addSubMenu(ui.createMenu('Mídia')
                 .addItem('Áudio', 'uvaAudio')
                 .addItem('Gráfico Uva', 'uvaGrafico')
