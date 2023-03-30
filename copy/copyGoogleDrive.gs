@@ -39,7 +39,7 @@ function copyAndTransferOwnership(newFileName) {
     var copiedDoc = DocumentApp.openById(copiedDocId);
     var url = copiedDoc.getUrl();
     var html = "<script>window.open('" + url + "', '_blank'); google.script.host.close();</script>";
-    var output = HtmlService.createHtmlOutput(html);
+    var output = HtmlService.createHtmlOutput(html).setWidth(400).setHeight(100);;
     DocumentApp.getUi().showModalDialog(output, 'Documento copiado');
 
     // Obter o projeto do Apps Script vinculado ao documento original

@@ -2,7 +2,21 @@
 Transforma um documento do GoogleDocs em um arquivo JSON, utilizando ArchieML
 * Baseado no repositório de Loren Riesenfeld (https://github.com/lorenries)
 * Não requer OAuth
+* Modificações realizadas no código para tratar bolds e itálicos feitos diretamente no GoogleDocs
+* Para criar uma reportagem padrão, utilize os sistemas Uva Pages e Arc, seguindo os passos abaixo:
 
+# Uva Pages
+* No menu Uva Pages no Google Docs, encontre as funções para montar a reportagem.
+* Copiar template: faz uma cópia deste documento para o seu drive
+* Salvar e pré-visualizar: essa função converte o documento em um arquivo de dados estruturado no formarto JSON e permite salvá-lo no servidor da Arte, no seu Drive ou no seu computador. Quando armazenado no servidor da Arte, é possível pré-visualizar a reportagem antes de enviá-la para o Arc.
+* Enviar arquivos: envia arquivos extras, como CSS personalizado, JavaScript ou mídias, para aprimorar a reportagem.
+* Formatar documento: ajusta o Google Docs para destacar as marcações em relação ao texto.
+* As marcações em amarelo indicam como o script deve renderizar os elementos corretamente, utilizando um padrão de chave/valor. A chave corresponde ao texto antes dos dois pontos, enquanto o valor se refere ao que vem depois deles.
+* Componentes: adiciona diferentes tipos de elementos à reportagem
+Para adicionar imagens, use o Photocenter, copie e cole o valor 'PathToResizer' após a chave 'fonte:'.
+* O Google Docs é colaborativo e pode ser editado por mais de uma pessoa ao mesmo tempo.
+
+# Amazon S3
 Pré-requisitos no S3:
 * Crie um novo bucket:
 * Configure o bucket para acesso público (Bucket > permissões > Bloquear acesso público – retirar o bloqueio)
@@ -32,7 +46,3 @@ Pré-requisitos no S3:
 Nome do bucket
 Caminho: se quiser ter mais de um JSON neste bucket
 AWS access Key ID e AWS secret Key
-
-* Modificações realizadas no código para tratar bolds e itálicos feitos diretamente no GoogleDocs
-* Formatar documento: organiza o GoogleDocs para que as markups fiquem com uma fonte customizada
-* Também há uma função para salvar no drive uma versão do JSON ('Salvar > no Google Drive')
